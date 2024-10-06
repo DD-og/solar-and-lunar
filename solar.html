@@ -1,97 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Eclipse</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solar Eclipse Simulator</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            animation: dayToNight 10s infinite 1.5s;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1a1a2e;
+        animation: dayToNight 10s infinite 1.5s;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        font-family: "Poppins", sans-serif;
+      }
+      .container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+      }
+      .sun {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ffd700 0%, #ffa500 100%);
+        box-shadow: 0 0 50px #ffd700;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        overflow: hidden;
+      }
+      .shadow {
+        height: 170px;
+        width: 170px;
+        border-radius: 50%;
+        background-color: #1a1a2e;
+        position: absolute;
+        top: -5px;
+        left: 0px;
+        animation: moveShadow 10s infinite 1.5s;
+      }
+      .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 2s;
+        animation: showStars 10s infinite 1.5s;
+      }
+      .star {
+        position: absolute;
+        background-color: #ffffff;
+        border-radius: 50%;
+      }
+      .title {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 600;
+        text-align: center;
+        opacity: 0.8;
+      }
+      @keyframes moveShadow {
+        0%,
+        100% {
+          transform: translateX(150px);
+          background-color: #1a1a2e;
         }
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: block;
+        50% {
+          transform: translateX(-10px);
+          background-color: #000000;
         }
-        .sun {
-            height: 150px;
-            width: 150px;
-            border-radius: 50%;
-            background-color: #fcd25b;
-            border: 3px solid #fcd25b;
-            position: relative;
-            overflow: hidden;
+      }
+      @keyframes dayToNight {
+        0%,
+        100% {
+          background-color: #4a69bd;
         }
-        .shadow {
-            height: 170px;
-            width: 170px;
-            border-radius: 50%;
-            background-color: white;
-            position: absolute;
-            top: -5px;
-            left: 0px;
-            animation: moveShadow 10s infinite 1.5s;
+        50% {
+          background-color: #1a1a2e;
         }
-        @keyframes moveShadow {
-            0% {
-                transform: translateX(150px);
-                background-color: white;
-            }
-            50% {
-                transform: translateX(-10px);
-                background-color: black;
-            }
-            100% {
-                transform: translateX(-170px);
-                background-color: white;
-            }
+      }
+      @keyframes showStars {
+        0%,
+        100% {
+          opacity: 0;
         }
-        @keyframes dayToNight {
-            0% {
-                background-color: white;
-            }
-            50% {
-                background-color: black;
-            }
-            100% {
-                background-color: white;
-            }
+        50% {
+          opacity: 1;
         }
-        .credits {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .credits a {
-            font-family: 'Comic Sans MS', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: rgb(129, 129, 129);
-            text-decoration: none;
-        }
-        .credits img {
-            height: 20px;
-            margin-left: 5px;
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="title">Solar Eclipse</div>
     <div class="container">
-        <div class="sun">
-            <div class="shadow"></div>
-        </div>
+      <div class="sun">
+        <div class="shadow"></div>
+      </div>
+      <div class="stars"></div>
     </div>
-</body>
+
+    <script>
+      function createStars() {
+        const starsContainer = document.querySelector(".stars");
+        const numStars = 100;
+
+        for (let i = 0; i < numStars; i++) {
+          const star = document.createElement("div");
+          star.classList.add("star");
+          star.style.width = `${Math.random() * 2 + 1}px`;
+          star.style.height = star.style.width;
+          star.style.top = `${Math.random() * 100}%`;
+          star.style.left = `${Math.random() * 100}%`;
+          starsContainer.appendChild(star);
+        }
+      }
+
+      createStars();
+    </script>
+  </body>
 </html>
